@@ -18,6 +18,10 @@ Below you will find some information on how to perform common tasks.<br>
 Overlay Counts added for more than 5 images.
 
 
+## Demo
+![react-native-splash-screen-Android](https://media.giphy.com/media/g04KayLmHrF5hqXzf6/giphy.gif)
+
+
 ## Installation
 
 Run the following
