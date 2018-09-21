@@ -19,7 +19,7 @@ Overlay Counts added for more than 5 images.
 
 
 ## Demo
-![react-native-splash-screen-Android](https://media.giphy.com/media/g04KayLmHrF5hqXzf6/giphy.gif)
+![react-fb-image-grid](https://media.giphy.com/media/g04KayLmHrF5hqXzf6/giphy.gif)
 
 
 ## Installation
