@@ -1,0 +1,120 @@
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
+@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css';
+
+.App {
+  text-align: center;
+  margin: auto;
+  padding: 10px;
+  height: inherit;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-title {
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Images Component CSS */
+
+
+.container *{
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+
+.col-md-4 {
+  width: 33.33333333%;
+}
+
+.border {
+  border: 2px solid white;
+  border-radius: 6px;
+}
+
+.background {
+  background-size: cover !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}
+
+.height-one {
+  height: 100vw;
+}
+
+.height-two {
+  height: 50vw;
+}
+
+.height-three {
+  height: 33vw;
+}
+
+.cover {
+  background-color: #222;
+  opacity: 0.8;
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  border-radius: 6px;
+}
+
+.cover-text {
+  right: 0;
+  left: 0;
+  bottom: 0;
+  color: white;
+  font-size: 7vw;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translate(0%, -50%);
+  -ms-transform: translate(0%, -50%);
+  transform: translate(0%, -50%);
+  text-align: center;
+}
+
+.cover-text > p {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.slide {
+  height: 0;
+  bottom: 100%;
+  transition: .5s ease;
+  overflow: hidden;
+  font-size: 3vw
+}
+
+.border:hover .slide  {
+  bottom: 0;
+  height: auto;
+}
+
+.border:hover .animate-text  {
+  top: 62%
+}
