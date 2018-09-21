@@ -22,6 +22,10 @@ Overlay Counts added for more than 5 images.
 ![react-fb-image-grid](https://media.giphy.com/media/g04KayLmHrF5hqXzf6/giphy.gif)
 
 
+## Features `v0.1.2`
+![react-fb-image-grid](https://youtu.be/HdEhsDNkw6s)
+
+
 ## Installation
 
 Run the following
