@@ -23,7 +23,7 @@ Overlay Counts added for more than 5 images.
 
 
 ## Features `v0.1.2`
-![react-fb-image-grid](https://youtu.be/HdEhsDNkw6s)
+https://youtu.be/HdEhsDNkw6s
 
 
 ## Installation
