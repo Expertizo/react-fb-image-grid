@@ -1,161 +1,367 @@
 import React, { Component } from 'react';
-import { Image, Grid, Row, Col } from 'react-bootstrap';
-import Modal from './Modal'
+import { Grid, Row, Col } from 'react-bootstrap';
+import Modal from './Modal';
 import PropTypes from 'prop-types';
 
-class Images extends Component {
-  static defaultProps = {
-    images: [],
-    width: 100,
-    hideOverlay: false,
-    renderOverlay: () => 'Preview Image',
-    overlayBackgroundColor: '#222222',
-    onClickEach: null,
-    countFrom: 5
+var _class, _temp;
+
+function _classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError('Cannot call a class as a function');
   }
+}
 
-  constructor(props) {
-    super(props)
+function _possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError(
+      "this hasn't been initialised - super() hasn't been called",
+    );
+  }
+  return call && (typeof call === 'object' || typeof call === 'function')
+    ? call
+    : self;
+}
 
-    this.state = {
+function _inherits(subClass, superClass) {
+  if (typeof superClass !== 'function' && superClass !== null) {
+    throw new TypeError(
+      'Super expression must either be null or a function, not ' +
+        typeof superClass,
+    );
+  }
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true,
+    },
+  });
+  if (superClass)
+    Object.setPrototypeOf
+      ? Object.setPrototypeOf(subClass, superClass)
+      : (subClass.__proto__ = superClass);
+}
+
+var Images = ((_temp = _class = (function(_Component) {
+  _inherits(Images, _Component);
+
+  function Images(props) {
+    _classCallCheck(this, Images);
+
+    var _this = _possibleConstructorReturn(this, _Component.call(this, props));
+
+    _this.state = {
       modal: false,
-      countFrom: props.countFrom > 0 && props.countFrom < 5 ? props.countFrom : 5,
-      conditionalRender: false
+      countFrom:
+        props.countFrom > 0 && props.countFrom < 5 ? props.countFrom : 5,
+      conditionalRender: false,
     };
 
-    this.openModal = this.openModal.bind(this);
-    this.onClose = this.onClose.bind(this);
+    _this.openModal = _this.openModal.bind(_this);
+    _this.onClose = _this.onClose.bind(_this);
 
-    if(props.countFrom <= 0 || props.countFrom > 5) {
-      console.warn('countFrom is limited to 5!')
+    if (props.countFrom <= 0 || props.countFrom > 5) {
+      console.warn('countFrom is limited to 5!');
     }
+    return _this;
   }
 
-  openModal(index) {
-    const {onClickEach, images} = this.props;
+  Images.prototype.openModal = function openModal(index) {
+    var _props = this.props,
+      onClickEach = _props.onClickEach,
+      images = _props.images;
 
-    if(onClickEach) {
-      return onClickEach({src: images[index], index})
+    if (onClickEach) {
+      return onClickEach({ src: images[index], index: index });
     }
 
-    this.setState({modal: true, url: images[index], index})
-  }
+    this.setState({ modal: true, url: images[index], index: index });
+  };
 
-  onClose() {
-    this.setState({modal: false})
-  }
+  Images.prototype.onClose = function onClose() {
+    this.setState({ modal: false });
+  };
 
-  renderOne() {
-    const {width, images} = this.props;
-    const {countFrom} = this.state;
-    const height = `${100 * (width / 100)}vw`;
+  Images.prototype.renderOne = function renderOne() {
+    var _props2 = this.props,
+      width = _props2.width,
+      images = _props2.images;
+    var countFrom = this.state.countFrom;
 
-    const overlay = images.length > countFrom && countFrom == 1 ? this.renderCountOverlay(true) : this.renderOverlay();
+    var height = 100 * (width / 100) + '%';
 
-    return  <Grid style={{width: `${width}%`}}>
-      <Row>
-        <Col xs={12} md={12} className={`border height-${images.length == 1 || countFrom == 1 ? 'one' : 'two' } background`} onClick={this.openModal.bind(this, 0)} style={{background: `url(${images[0]})`, height}}>
-          {overlay}
-        </Col>
-      </Row>
-    </Grid>;
-  }
+    var overlay =
+      images.length > countFrom && countFrom === 1
+        ? this.renderCountOverlay(true)
+        : this.renderOverlay();
 
-  renderTwo() {
-    const {width, images} = this.props;
-    const {countFrom} = this.state;
-    const overlay = images.length > countFrom && [2, 3].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay();
-    const height = `${50 * (width / 100)}vw`;
-    const conditionalRender = [3, 4].includes(images.length) || images.length > +countFrom && [3, 4].includes(+countFrom);
+    return React.createElement(
+      Grid,
+      { key: Math.random(), style: { width: width + '%' } },
+      React.createElement(
+        Row,
+        {key: Math.random(),},
+        React.createElement(
+          Col,
+          {
+            key: Math.random(),
+            xs: 12,
+            md: 12,
+            className:
+              'border height-' +
+              (images.length === 1 || countFrom === 1 ? 'one' : 'two') +
+              ' background',
+            onClick: this.openModal.bind(this, 0),
+            style: {
+              background: 'url(' + images[0] + ')',
+              height: height,
+              backgroundSize: 'cover',
+            },
+          },
+          overlay,
+        ),
+      ),
+    );
+  };
 
-    return <Grid style={{width: `${width}%`}}>
-      <Row>
-        <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 0)} style={{background: `url(${conditionalRender ? images[1] : images[0]})`, height}}>
-          {this.renderOverlay()}
-        </Col>
-        <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 1)} style={{background: `url(${conditionalRender ? images[2] : images[1]})`, height}}>
-          {overlay}
-        </Col>
-      </Row>
-    </Grid>;
-  }
+  Images.prototype.renderTwo = function renderTwo() {
+    var _props3 = this.props,
+      width = _props3.width,
+      images = _props3.images;
+    var countFrom = this.state.countFrom;
 
-  renderThree(more) {
-    const {width, images} = this.props;
-    const {countFrom} = this.state;
-    const overlay = !countFrom || countFrom > 5 || images.length > countFrom && [4, 5].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay();
-    const height = `${33 * (width / 100)}vw`;
-    const conditionalRender = images.length == 4 || images.length > +countFrom && +countFrom == 4;
+    var overlay =
+      images.length > countFrom && [2, 3].includes(+countFrom)
+        ? this.renderCountOverlay(true)
+        : this.renderOverlay();
+    var height = 50 * (width / 100) + '%';
+    var conditionalRender =
+      [3, 4].includes(images.length) ||
+      (images.length > +countFrom && [3, 4].includes(+countFrom));
 
-    return <Grid style={{width: `${width}%`}}>
-      <Row>
-        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 2)} style={{background: `url(${conditionalRender ? images[1] : images[2]})`, height}}>
-          {this.renderOverlay()}
-        </Col>
-        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 3)} style={{background: `url(${conditionalRender ? images[2] : images[3]})`, height}}>
-          {this.renderOverlay()}
-        </Col>
-        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 3 : 4)} style={{background: `url(${ conditionalRender ? images[3] : images[4]})`, height}}>
-          {overlay}
-        </Col>
-      </Row>
-    </Grid>;
-  }
+    return React.createElement(
+      Grid,
+      { key: Math.random(), style: { width: width + '%' } },
+      React.createElement(
+        Row,
+        {key: Math.random(),},
+        React.createElement(
+          Col,
+          {
+            key: Math.random(),
+            xs: 6,
+            md: 6,
+            className: 'border height-two background',
+            onClick: this.openModal.bind(this, conditionalRender ? 1 : 0),
+            style: {
+              background:
+                'url(' + (conditionalRender ? images[1] : images[0]) + ')',
+              height: height,
+            },
+          },
+          this.renderOverlay(),
+        ),
+        React.createElement(
+          Col,
+          {
+            key: Math.random(),
+            xs: 6,
+            md: 6,
+            className: 'border height-two background',
+            onClick: this.openModal.bind(this, conditionalRender ? 2 : 1),
+            style: {
+              background:
+                'url(' + (conditionalRender ? images[2] : images[1]) + ')',
+              height: height,
+            },
+          },
+          overlay,
+        ),
+      ),
+    );
+  };
 
-  renderOverlay() {
-    const {hideOverlay, renderOverlay, overlayBackgroundColor, width} = this.props;
-    const fontSize = `${3 * (width / 100)}vw`;
+  Images.prototype.renderThree = function renderThree(more) {
+    var _props4 = this.props,
+      width = _props4.width,
+      images = _props4.images;
+    var countFrom = this.state.countFrom;
 
-    if(hideOverlay) {
-      return false
+    var overlay =
+      !countFrom ||
+      countFrom > 5 ||
+      (images.length > countFrom && [4, 5].includes(+countFrom))
+        ? this.renderCountOverlay(true)
+        : this.renderOverlay();
+    var height = 33 * (width / 100) + '%';
+    var conditionalRender =
+      images.length === 4 || (images.length > +countFrom && +countFrom === 4);
+
+    return React.createElement(
+      Grid,
+      { key: Math.random(), style: { width: width + '%' } },
+      React.createElement(
+        Row,
+        {key: Math.random(),},
+        React.createElement(
+          Col,
+          {
+            key: Math.random(),
+            xs: 6,
+            md: 4,
+            className: 'border height-three background',
+            onClick: this.openModal.bind(this, conditionalRender ? 1 : 2),
+            style: {
+              background:
+                'url(' + (conditionalRender ? images[1] : images[2]) + ')',
+              height: height,
+            },
+          },
+          this.renderOverlay(),
+        ),
+        React.createElement(
+          Col,
+          {
+            key: Math.random(),
+            xs: 6,
+            md: 4,
+            className: 'border height-three background',
+            onClick: this.openModal.bind(this, conditionalRender ? 2 : 3),
+            style: {
+              background:
+                'url(' + (conditionalRender ? images[2] : images[3]) + ')',
+              height: height,
+            },
+          },
+          this.renderOverlay(),
+        ),
+        React.createElement(
+          Col,
+          {
+            key: Math.random(),
+            xs: 6,
+            md: 4,
+            className: 'border height-three background',
+            onClick: this.openModal.bind(this, conditionalRender ? 3 : 4),
+            style: {
+              background:
+                'url(' + (conditionalRender ? images[3] : images[4]) + ')',
+              height: height,
+            },
+          },
+          overlay,
+        ),
+      ),
+    );
+  };
+
+  Images.prototype.renderOverlay = function renderOverlay() {
+    var _props5 = this.props,
+      hideOverlay = _props5.hideOverlay,
+      renderOverlay = _props5.renderOverlay,
+      overlayBackgroundColor = _props5.overlayBackgroundColor,
+      width = _props5.width;
+
+    var fontSize = 3 * (width / 100) + '%';
+
+    if (hideOverlay) {
+      return false;
     }
 
     return [
-      <div className="cover slide" style={{backgroundColor: overlayBackgroundColor}}></div>, <div className="cover-text slide animate-text"  style={{fontSize}}>
-        {renderOverlay()}
-      </div>
-    ]
-  }
+      React.createElement('div', {
+        key: Math.random(),
+        className: 'cover slide',
+        style: { backgroundColor: overlayBackgroundColor },
+      }),
+      React.createElement(
+        'div',
+        {
+          key: Math.random(),
+          className: 'cover-text slide animate-text',
+          style: { fontSize: fontSize },
+        },
+        renderOverlay(),
+      ),
+    ];
+  };
 
-  renderCountOverlay(more) {
-    const {images, width} = this.props;
-    const {countFrom} = this.state;
-    const extra = images.length - (countFrom && countFrom > 5 ? 5 : countFrom);
-    const fontSize = `${7 * (width / 100)}vw`;
+  Images.prototype.renderCountOverlay = function renderCountOverlay(more) {
+    var _props6 = this.props,
+      images = _props6.images,
+      width = _props6.width;
+    var countFrom = this.state.countFrom;
 
-    return [more && <div className="cover"></div>, more && <div className="cover-text" style={{fontSize}}><p>+{extra}</p></div>]
-  }
+    var extra = images.length - (countFrom && countFrom > 5 ? 5 : countFrom);
+    var fontSize = 7 * (width / 100) + '%';
 
-  render(){
-    const {modal, index, countFrom} = this.state;
-    const {images} = this.props;
-    const imagesToShow = [...images];
+    return [
+      more && React.createElement('div', { key: Math.random(), className: 'cover' }),
+      more &&
+        React.createElement(
+          'div',
+          { key: Math.random(), className: 'cover-text', style: { fontSize: fontSize } },
+          React.createElement('p', {key: Math.random(),}, '+', extra),
+        ),
+    ];
+  };
 
-    if(countFrom && images.length > countFrom) {
+  Images.prototype.render = function render() {
+    var _state = this.state,
+      modal = _state.modal,
+      index = _state.index,
+      countFrom = _state.countFrom;
+    var images = this.props.images;
+
+    var imagesToShow = [].concat(images);
+
+    if (countFrom && images.length > countFrom) {
       imagesToShow.length = countFrom;
     }
 
-    return(
-        <div className="App">
-          {[1, 3, 4].includes(imagesToShow.length)  && this.renderOne()}
-          {imagesToShow.length >= 2 && imagesToShow.length != 4 && this.renderTwo()}
-          {imagesToShow.length >= 4 && this.renderThree()}
+    return React.createElement(
+      'div',
+      { key: Math.random(), className: 'react-fb-image-grid' },
+      [1, 3, 4].includes(imagesToShow.length) && this.renderOne(),
+      imagesToShow.length >= 2 && imagesToShow.length !== 4 && this.renderTwo(),
+      imagesToShow.length >= 4 && this.renderThree(),
+      modal &&
+        React.createElement(Modal, {
+          key: Math.random(),
+          onClose: this.onClose,
+          index: index,
+          images: images,
+        }),
+    );
+  };
 
-          {modal && <Modal onClose={this.onClose} index={index} images={images}/>}
-        </div>
-    )
-  }
+  return Images;
+})(Component)),
+(_class.defaultProps = {
+  images: [],
+  width: 100,
+  hideOverlay: false,
+  renderOverlay: function renderOverlay() {
+    return 'Preview Image';
+  },
+  overlayBackgroundColor: '#222222',
+  onClickEach: null,
+  countFrom: 5,
+}),
+_temp);
 
-}
-
-Images.propTypes = {
-  images: PropTypes.array.isRequired,
-  width: PropTypes.number,
-  hideOverlay: PropTypes.bool,
-  renderOverlay: PropTypes.func,
-  overlayBackgroundColor: PropTypes.string,
-  onClickEach: PropTypes.func,
-  countFrom: PropTypes.number
-};
+Images.propTypes =
+  process.env.NODE_ENV !== 'production'
+    ? {
+        images: PropTypes.array.isRequired,
+        width: PropTypes.number,
+        hideOverlay: PropTypes.bool,
+        renderOverlay: PropTypes.func,
+        overlayBackgroundColor: PropTypes.string,
+        onClickEach: PropTypes.func,
+        countFrom: PropTypes.number,
+      }
+    : {};
 
 export default Images;
