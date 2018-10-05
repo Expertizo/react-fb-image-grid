@@ -13,16 +13,17 @@ Below you will find some information on how to perform common tasks.<br>
 - [License](#license)
 
 
-## What's new `v0.1.2`
+## What's new `v0.1.3`
+* New props added: `align`, `fromLeft`, `fromRight`
+* Responsive bugs fixed.
 
-Overlay Counts added for more than 5 images.
 
 
 ## Demo
 ![react-fb-image-grid](https://media.giphy.com/media/g04KayLmHrF5hqXzf6/giphy.gif)
 
 
-## Features `v0.1.2`
+## Some Features Video
 https://youtu.be/HdEhsDNkw6s
 
 
@@ -57,6 +58,9 @@ hideOverlay | Boolean | false | `{true}`
 renderOverlay | Function | `() => 'Preview Image'` | `{() => <button>Show Image</button>}`
 overlayBackgroundColor | String | `#222222` | `'green'` or `'#000000'` or `'rgb(255, 26, 26)'`
 onClickEach | Function | null | `{({src, index}) => {}}`
+align | String | 'center' | `'left'` or `'right'` or `'center'`
+fromLeft | Number | null | `{50}` `//Package consider this as percent to move from left`
+fromRight | Number | null | `{80}` `//Package consider this as percent to move from right`
 
 
 ## Pull Requests

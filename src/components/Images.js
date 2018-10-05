@@ -11,7 +11,10 @@ class Images extends Component {
     renderOverlay: () => 'Preview Image',
     overlayBackgroundColor: '#222222',
     onClickEach: null,
-    countFrom: 5
+    countFrom: 5,
+    align: 'center',
+    fromLeft: null,
+    fromRight: null
   }
 
   constructor(props) {
@@ -31,6 +34,25 @@ class Images extends Component {
     }
   }
 
+  getStyle() {
+    const {width, align, fromLeft, fromRight} = this.props;
+    const style = {};
+
+    style['width'] = `${width}%`;
+    if(['left', 'right'].includes(align)) {
+      const alignText = align === 'left' ? "Left" : "Right";
+      style[`margin${alignText}`] = 0
+    }
+    if(typeof fromLeft === "number") {
+      style[`marginLeft`] = `${fromLeft}%`;
+    }
+    if(typeof fromRight === "number") {
+      style[`marginRight`] = `${fromRight}%`;
+    }
+
+    return style
+  }
+
   openModal(index) {
     const {onClickEach, images} = this.props;
 
@@ -46,13 +68,12 @@ class Images extends Component {
   }
 
   renderOne() {
-    const {width, images} = this.props;
+    const {images, width} = this.props;
     const {countFrom} = this.state;
     const height = `${100 * (width / 100)}vw`;
-
     const overlay = images.length > countFrom && countFrom == 1 ? this.renderCountOverlay(true) : this.renderOverlay();
 
-    return  <Grid style={{width: `${width}%`}}>
+    return  <Grid style={this.getStyle()}>
       <Row>
         <Col xs={12} md={12} className={`border height-${images.length == 1 || countFrom == 1 ? 'one' : 'two' } background`} onClick={this.openModal.bind(this, 0)} style={{background: `url(${images[0]})`, height}}>
           {overlay}
@@ -68,7 +89,7 @@ class Images extends Component {
     const height = `${50 * (width / 100)}vw`;
     const conditionalRender = [3, 4].includes(images.length) || images.length > +countFrom && [3, 4].includes(+countFrom);
 
-    return <Grid style={{width: `${width}%`}}>
+    return <Grid style={this.getStyle()}>
       <Row>
         <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 0)} style={{background: `url(${conditionalRender ? images[1] : images[0]})`, height}}>
           {this.renderOverlay()}
@@ -83,17 +104,17 @@ class Images extends Component {
   renderThree(more) {
     const {width, images} = this.props;
     const {countFrom} = this.state;
-    const overlay = !countFrom || countFrom > 5 || images.length > countFrom && [4, 5].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay();
+    const overlay = !countFrom || countFrom > 5 || images.length > countFrom && [4, 5].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay(conditionalRender ? 3 : 4);
     const height = `${33 * (width / 100)}vw`;
     const conditionalRender = images.length == 4 || images.length > +countFrom && +countFrom == 4;
 
-    return <Grid style={{width: `${width}%`}}>
+    return <Grid style={this.getStyle()}>
       <Row>
         <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 2)} style={{background: `url(${conditionalRender ? images[1] : images[2]})`, height}}>
-          {this.renderOverlay()}
+          {this.renderOverlay(conditionalRender ? 1 : 2)}
         </Col>
         <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 3)} style={{background: `url(${conditionalRender ? images[2] : images[3]})`, height}}>
-          {this.renderOverlay()}
+          {this.renderOverlay(conditionalRender ? 2 : 3)}
         </Col>
         <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 3 : 4)} style={{background: `url(${ conditionalRender ? images[3] : images[4]})`, height}}>
           {overlay}
@@ -102,7 +123,7 @@ class Images extends Component {
     </Grid>;
   }
 
-  renderOverlay() {
+  renderOverlay(id) {
     const {hideOverlay, renderOverlay, overlayBackgroundColor, width} = this.props;
     const fontSize = `${3 * (width / 100)}vw`;
 
@@ -111,7 +132,8 @@ class Images extends Component {
     }
 
     return [
-      <div className="cover slide" style={{backgroundColor: overlayBackgroundColor}}></div>, <div className="cover-text slide animate-text"  style={{fontSize}}>
+      <div key={`cover-${id}`} className="cover slide" style={{backgroundColor: overlayBackgroundColor}}></div>,
+      <div key={`cover-text-${id}`} className="cover-text slide animate-text"  style={{fontSize}}>
         {renderOverlay()}
       </div>
     ]
@@ -136,7 +158,7 @@ class Images extends Component {
     }
 
     return(
-        <div className="App">
+        <div className="grid-container">
           {[1, 3, 4].includes(imagesToShow.length)  && this.renderOne()}
           {imagesToShow.length >= 2 && imagesToShow.length != 4 && this.renderTwo()}
           {imagesToShow.length >= 4 && this.renderThree()}
@@ -155,7 +177,10 @@ Images.propTypes = {
   renderOverlay: PropTypes.func,
   overlayBackgroundColor: PropTypes.string,
   onClickEach: PropTypes.func,
-  countFrom: PropTypes.number
+  countFrom: PropTypes.number,
+  align: PropTypes.string,
+  fromLeft: PropTypes.number,
+  fromRight: PropTypes.number
 };
 
 export default Images;
