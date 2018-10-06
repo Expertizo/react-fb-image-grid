@@ -41,7 +41,7 @@ yarn add react-fb-image-grid
 ## Basic Usage
 
 ```
-import 'FbImageLibrary' from 'react-fb-image-grid'
+import FbImageLibrary from 'react-fb-image-grid'
 
 <FbImageLibrary images={[]}/>
 ```
