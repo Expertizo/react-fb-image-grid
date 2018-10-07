@@ -14,7 +14,7 @@ const images = ['https://images.pexels.com/photos/248797/pexels-photo-248797.jpe
 class Demo extends Component {
     render() {
         return <div>
-            <FbImageLibrary images={images} width="50" align="right"/>
+            <FbImageLibrary images={images}/>
         </div>
     }
 }
