@@ -13,9 +13,9 @@ Below you will find some information on how to perform common tasks.<br>
 - [License](#license)
 
 
-## What's new `v0.1.3`
-* New props added: `align`, `fromLeft`, `fromRight`
-* Responsive bugs fixed.
+## What's new `v0.1.4`
+* Removed props : `width`, ``align`, `fromLeft`, `fromRight` due to no use.
+* Fixed Responsive bugs.
 
 
 
@@ -52,15 +52,11 @@ import 'FbImageLibrary' from 'react-fb-image-grid'
 Props | Type | Default | Example
 :--- | :---: | :---: | :---
 images | Array (String) | **required** | `{['https://some-url.com/image.jpg', importedImage]}` `//Local image should be imported first`
-width | Number | auto | `{100}` `//Package consider this as percent`
 countFrom | Number | 5 | `{2}`  `//Should be from 1 to 5`
 hideOverlay | Boolean | false | `{true}`
 renderOverlay | Function | `() => 'Preview Image'` | `{() => <button>Show Image</button>}`
 overlayBackgroundColor | String | `#222222` | `'green'` or `'#000000'` or `'rgb(255, 26, 26)'`
 onClickEach | Function | null | `{({src, index}) => {}}`
-align | String | 'center' | `'left'` or `'right'` or `'center'`
-fromLeft | Number | null | `{50}` `//Package consider this as percent to move from left`
-fromRight | Number | null | `{80}` `//Package consider this as percent to move from right`
 
 
 ## Pull Requests

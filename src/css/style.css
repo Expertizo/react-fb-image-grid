@@ -7,14 +7,13 @@
   text-align: center;
   margin: auto;
   width: 100%;
-  position: absolute;
   padding: 10px;
-  height: inherit;
 }
 
 .container {
   padding-left: 0;
   padding-right: 0;
+  width: 100% !important;
 }
 
 .container *{
@@ -39,15 +38,18 @@
 }
 
 .height-one {
-  height: 100vw;
+  width: 100%;
+  padding-top: 100%;
 }
 
 .height-two {
-  height: 50vw;
+  width: 50%;
+  padding-top: 50%;
 }
 
 .height-three {
-  height: 33vw;
+  width: 33.3333%;
+  padding-top: 33.3333%;
 }
 
 .cover {
@@ -66,7 +68,7 @@
   left: 0;
   bottom: 0;
   color: white;
-  font-size: 7vw;
+  font-size: 7%;
   position: absolute;
   top: 50%;
   -webkit-transform: translate(0%, -50%);
@@ -88,7 +90,7 @@
   bottom: 100%;
   transition: .5s ease;
   overflow: hidden;
-  font-size: 3vw
+  font-size: 3%;
 }
 
 .border:hover .slide  {
