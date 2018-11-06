@@ -14,6 +14,7 @@ Below you will find some information on how to perform common tasks.<br>
 
 
 ## What's new `v0.1.4`
+* Fixed key warning.
 * Removed props : `width`, ``align`, `fromLeft`, `fromRight` due to no use.
 * Fixed Responsive bugs.
 
