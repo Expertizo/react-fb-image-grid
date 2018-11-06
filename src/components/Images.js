@@ -117,7 +117,7 @@ class Images extends Component {
     const {countFrom} = this.state;
     const extra = images.length - (countFrom && countFrom > 5 ? 5 : countFrom);
 
-    return [more && <div className="cover"></div>, more && <div className="cover-text" style={{fontSize: '200%'}}><p>+{extra}</p></div>]
+    return [more && <div key="count" className="cover"></div>, more && <div key="count-sub" className="cover-text" style={{fontSize: '200%'}}><p>+{extra}</p></div>]
   }
 
   render(){

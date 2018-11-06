@@ -13,10 +13,8 @@ Below you will find some information on how to perform common tasks.<br>
 - [License](#license)
 
 
-## What's new `v0.1.4`
-* Removed props : `width`, `align`, `fromLeft`, `fromRight` due to no use.
-* Fixed Responsive bugs.
-
+## What's new `v0.1.5`
+* Fixed key warning.
 
 
 ## Demo
