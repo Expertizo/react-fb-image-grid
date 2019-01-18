@@ -13,8 +13,8 @@ Below you will find some information on how to perform common tasks.<br>
 - [License](#license)
 
 
-## What's new `v0.1.5`
-* Fixed key warning.
+## What's new `v0.1.6`
+* Added prop to add thumbnails
 
 
 ## Demo
@@ -41,7 +41,11 @@ yarn add react-fb-image-grid
 ```
 import FbImageLibrary from 'react-fb-image-grid'
 
+// without thumbnails
 <FbImageLibrary images={[]}/>
+
+// with thumbnails
+<FbImageLibrary images={[]} thumbnails={[]} />
 ```
 
 
@@ -50,6 +54,7 @@ import FbImageLibrary from 'react-fb-image-grid'
 Props | Type | Default | Example
 :--- | :---: | :---: | :---
 images | Array (String) | **required** | `{['https://some-url.com/image.jpg', importedImage]}` `//Local image should be imported first`
+thumbnails | Array (String) | [] | `{['https://some-url.com/image.jpg', importedImage]}`
 countFrom | Number | 5 | `{2}`  `//Should be from 1 to 5`
 hideOverlay | Boolean | false | `{true}`
 renderOverlay | Function | `() => 'Preview Image'` | `{() => <button>Show Image</button>}`

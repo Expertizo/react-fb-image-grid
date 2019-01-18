@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 class Images extends Component {
   static defaultProps = {
     images: [],
+    thumbnails: [],
     hideOverlay: false,
     renderOverlay: () => 'Preview Image',
     overlayBackgroundColor: '#222222',
@@ -45,13 +46,13 @@ class Images extends Component {
   }
 
   renderOne() {
-    const {images} = this.props;
+    const {images, thumbnails} = this.props;
     const {countFrom} = this.state;
     const overlay = images.length > countFrom && countFrom == 1 ? this.renderCountOverlay(true) : this.renderOverlay();
 
     return  <Grid>
       <Row>
-        <Col xs={12} md={12} className={`border height-one background`} onClick={this.openModal.bind(this, 0)} style={{background: `url(${images[0]})`}}>
+        <Col xs={12} md={12} className={`border height-one background`} onClick={this.openModal.bind(this, 0)} style={{background: `url(${thumbnails[0] || images[0]})`}}>
           {overlay}
         </Col>
       </Row>
@@ -59,17 +60,17 @@ class Images extends Component {
   }
 
   renderTwo() {
-    const {images} = this.props;
+    const {images, thumbnails} = this.props;
     const {countFrom} = this.state;
     const overlay = images.length > countFrom && [2, 3].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay();
     const conditionalRender = [3, 4].includes(images.length) || images.length > +countFrom && [3, 4].includes(+countFrom);
 
     return <Grid>
       <Row>
-        <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 0)} style={{background: `url(${conditionalRender ? images[1] : images[0]})`}}>
+        <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 0)} style={{background: `url(${conditionalRender ? (thumbnails[1] || images[1]) : (thumbnails[0] || images[0])})`}}>
           {this.renderOverlay()}
         </Col>
-        <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 1)} style={{background: `url(${conditionalRender ? images[2] : images[1]})`}}>
+        <Col xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 1)} style={{background: `url(${conditionalRender ? (thumbnails[2] || images[2]) : (thumbnails[1] || images[1])})`}}>
           {overlay}
         </Col>
       </Row>
@@ -77,20 +78,20 @@ class Images extends Component {
   }
 
   renderThree(more) {
-    const {images} = this.props;
+    const {images, thumbnails} = this.props;
     const {countFrom} = this.state;
     const overlay = !countFrom || countFrom > 5 || images.length > countFrom && [4, 5].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay(conditionalRender ? 3 : 4);
     const conditionalRender = images.length == 4 || images.length > +countFrom && +countFrom == 4;
 
     return <Grid>
       <Row>
-        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 2)} style={{background: `url(${conditionalRender ? images[1] : images[2]})`}}>
+        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 2)} style={{background: `url(${conditionalRender ? (thumbnails[1] || images[1]) : (thumbnails[2] || images[2])})`}}>
           {this.renderOverlay(conditionalRender ? 1 : 2)}
         </Col>
-        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 3)} style={{background: `url(${conditionalRender ? images[2] : images[3]})`}}>
+        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 3)} style={{background: `url(${conditionalRender ? (thumbnails[2] || images[2]) : (thumbnails[3] || images[3])})`}}>
           {this.renderOverlay(conditionalRender ? 2 : 3)}
         </Col>
-        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 3 : 4)} style={{background: `url(${conditionalRender ? images[3] : images[4]})`}}>
+        <Col xs={6} md={4} className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 3 : 4)} style={{background: `url(${conditionalRender ? (thumbnails[3] || images[3]) : (thumbnails[4] || images[4])})`}}>
           {overlay}
         </Col>
       </Row>
@@ -144,6 +145,7 @@ class Images extends Component {
 
 Images.propTypes = {
   images: PropTypes.array.isRequired,
+  thumbnails: PropTypes.array,
   hideOverlay: PropTypes.bool,
   renderOverlay: PropTypes.func,
   overlayBackgroundColor: PropTypes.string,
