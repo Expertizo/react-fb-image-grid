@@ -13,8 +13,8 @@ Below you will find some information on how to perform common tasks.<br>
 - [License](#license)
 
 
-## What's new `v0.1.5`
-* Fixed key warning.
+## What's new `v0.1.6`
+* Added option to provide thumbnail.
 
 
 ## Demo
@@ -38,19 +38,27 @@ yarn add react-fb-image-grid
 
 ## Basic Usage
 
-```
+```jsx
 import FbImageLibrary from 'react-fb-image-grid'
 
-<FbImageLibrary images={[]}/>
+<FbImageLibrary images={['img_01', 'img_02', '...']}/>
 ```
+or
+```jsx
+import FbImageLibrary from 'react-fb-image-grid'
 
+<FbImageLibrary images={[
+  {url: 'img_01', thumbnail: 'thumb_01'},
+  {url: '......', thumbnail: '........'},
+]}/>
+```
 
 ## Props
 
 Props | Type | Default | Example
 :--- | :---: | :---: | :---
-images | Array (String) | **required** | `{['https://some-url.com/image.jpg', importedImage]}` `//Local image should be imported first`
-countFrom | Number | 5 | `{2}`  `//Should be from 1 to 5`
+images | **Array (String)** <br> OR <br> **Array (Object)** | **required** | `{['imgURL', 'imgURL', '...']}`  <br> OR <br> `{[ {url: 'imgURL, thumbnail: 'thumbnailURL'}, {url, '...', thumbnail: '...'} ]}`
+countFrom | Number | 5 | `{2}` - *Should be between 1 to 5*
 hideOverlay | Boolean | false | `{true}`
 renderOverlay | Function | `() => 'Preview Image'` | `{() => <button>Show Image</button>}`
 overlayBackgroundColor | String | `#222222` | `'green'` or `'#000000'` or `'rgb(255, 26, 26)'`
