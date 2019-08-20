@@ -61,10 +61,6 @@ class Images extends Component {
       );
       const { thumbnails } = this.state;
       thumbnails[i] = canvas.toDataURL("image/jpeg");
-      console.log(
-        "TCL: Images -> generateThumbnail -> thumbnails[i]",
-        thumbnails[i]
-      );
       this.setState({ thumbnails });
     };
   };
@@ -205,7 +201,6 @@ class Images extends Component {
         : this.renderOverlay(null, 0);
     let first = overlay;
     if (this.isIframe(images[0])) {
-      // console.log("i am exist");
       first = (
         <React.Fragment>
           <iframe
@@ -259,7 +254,6 @@ class Images extends Component {
     let first = this.renderOverlay(),
       second = overlay;
     if (this.isIframe(images[0])) {
-      // console.log("i am exist");
       first = (
         <React.Fragment>
           <iframe
@@ -306,7 +300,6 @@ class Images extends Component {
           {this.renderOverlay(null, "Play Video")}
         </React.Fragment>
       );
-      console.log("i am exist 1");
     }
 
     return (
@@ -362,7 +355,6 @@ class Images extends Component {
       second = this.renderOverlay(conditionalRender ? 2 : 3),
       third = overlay;
     if (this.isIframe(images[1])) {
-      // console.log("i am exist");
       first = (
         <React.Fragment>
           <iframe
@@ -409,10 +401,8 @@ class Images extends Component {
           {this.renderOverlay(null, "Play Video")}
         </React.Fragment>
       );
-      console.log("i am exist 1");
     }
     if (this.isIframe(images[3])) {
-      // console.log("i am exist");
       third = (
         <React.Fragment>
           <iframe
