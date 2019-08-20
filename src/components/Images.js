@@ -32,7 +32,74 @@ class Images extends Component {
       console.warn("countFrom is limited to 5!");
     }
   }
-
+  generateThumbnail = async (url, i) => {
+    let canvas = document.createElement("canvas");
+    canvas.width = 640;
+    canvas.height = 480;
+    canvas.crossOrigin = "anonymous";
+    let context = canvas.getContext("2d");
+    let video = document.createElement("video");
+    video.width = 0;
+    video.id = `video-${i}`;
+    video.crossOrigin = "anonymous";
+    let source = document.createElement("source");
+    source.src = url;
+    video.appendChild(source);
+    document.getElementsByTagName("html")[0].append(video);
+    video.autoplay = true;
+    video.muted = true;
+    video.ontimeupdate = () => {
+      video.pause();
+      // alert("asdas");
+      context.drawImage(
+        document.getElementById(`video-${i}`),
+        // video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      const { thumbnails } = this.state;
+      thumbnails[i] = canvas.toDataURL("image/jpeg");
+      console.log(
+        "TCL: Images -> generateThumbnail -> thumbnails[i]",
+        thumbnails[i]
+      );
+      this.setState({ thumbnails });
+    };
+  };
+  generateThumbnail = async (url, i) => {
+    let canvas = document.createElement("canvas");
+    canvas.width = 640;
+    canvas.height = 480;
+    canvas.crossOrigin = "anonymous";
+    let context = canvas.getContext("2d");
+    let video = document.createElement("video");
+    video.width = 0;
+    video.id = `video-${i}`;
+    video.crossOrigin = "anonymous";
+    let source = document.createElement("source");
+    source.src = url;
+    video.appendChild(source);
+    document.getElementsByTagName("html")[0].append(video);
+    video.autoplay = true;
+    video.muted = true;
+    video.ontimeupdate = () => {
+      video.pause();
+      // alert("asdas");
+      context.drawImage(
+        document.getElementById(`video-${i}`),
+        // video,
+        0,
+        0,
+        canvas.width,
+        canvas.height
+      );
+      const { thumbnails } = this.state;
+      thumbnails[i] = canvas.toDataURL("image/jpeg");
+      this.setState({ thumbnails });
+    };
+  };
   componentDidMount() {
     const { images } = this.props;
     if (!images.length) return;
@@ -40,7 +107,7 @@ class Images extends Component {
     const imageUrls = [];
     const thumbnails = [];
 
-    images.forEach(img => {
+    images.forEach((img, i) => {
       if (this.pureTypeOf(img) === "object") {
         if ("iFrame" in img) {
           imageUrls.push(() => (
@@ -74,12 +141,18 @@ class Images extends Component {
                 alignItems: "center"
               }}
             >
-              <video width="400" controls source={img.url} {...img.props}>
+              <video
+                width="400"
+                controls
+                source={img.url}
+                {...img.props}
+                crossOrigin="anonymous"
+              >
                 <source src={img.url} />
               </video>
             </div>
           ));
-          thumbnails.push(img.thumbnail || null);
+          thumbnails.push(img.thumbnail || this.generateThumbnail(img.url, i));
         } else {
           imageUrls.push(img.url);
           thumbnails.push(img.thumbnail || img.url);
@@ -119,6 +192,9 @@ class Images extends Component {
       .slice(8, -1)
       .toLowerCase();
   };
+  isIframe = temp => {
+    return "iFrame" in temp && temp.iFrame;
+  };
 
   renderOne() {
     const { images } = this.props;
@@ -126,8 +202,33 @@ class Images extends Component {
     const overlay =
       images.length > countFrom && countFrom == 1
         ? this.renderCountOverlay(true)
-        : this.renderOverlay();
+        : this.renderOverlay(null, 0);
+    let first = overlay;
+    if (this.isIframe(images[0])) {
+      // console.log("i am exist");
+      first = (
+        <React.Fragment>
+          <iframe
+            title="cats"
+            width="560"
+            height="315"
+            src={images[0].url}
+            style={{
+              zIndex: -1,
+              maxWidth: "97%",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              top: "50%",
+              transform: "translateY(-50%)"
+            }}
+          />
 
+          {this.renderOverlay(null, "Play Video")}
+        </React.Fragment>
+      );
+    }
     return (
       <Grid>
         <Row>
@@ -138,7 +239,7 @@ class Images extends Component {
             onClick={this.openModal.bind(this, 0)}
             style={{ background: `url(${thumbnails[0]})` }}
           >
-            {overlay}
+            {first}
           </Col>
         </Row>
       </Grid>
@@ -151,10 +252,62 @@ class Images extends Component {
     const overlay =
       images.length > countFrom && [2, 3].includes(+countFrom)
         ? this.renderCountOverlay(true)
-        : this.renderOverlay();
+        : this.renderOverlay(null, 1);
     const conditionalRender =
       [3, 4].includes(images.length) ||
       (images.length > +countFrom && [3, 4].includes(+countFrom));
+    let first = this.renderOverlay(),
+      second = overlay;
+    if (this.isIframe(images[0])) {
+      // console.log("i am exist");
+      first = (
+        <React.Fragment>
+          <iframe
+            title="cats"
+            width="560"
+            height="315"
+            src={images[0].url}
+            style={{
+              zIndex: -1,
+              maxWidth: "97%",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              top: "50%",
+              transform: "translateY(-50%)"
+            }}
+          />
+
+          {this.renderOverlay(null, "Play Video")}
+        </React.Fragment>
+      );
+    }
+    if (this.isIframe(images[1])) {
+      second = (
+        <React.Fragment>
+          <iframe
+            title="cats"
+            width="560"
+            height="315"
+            src={images[1].url}
+            style={{
+              zIndex: -1,
+              maxWidth: "97%",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              top: "50%",
+              transform: "translateY(-50%)"
+            }}
+          />
+
+          {this.renderOverlay(null, "Play Video")}
+        </React.Fragment>
+      );
+      console.log("i am exist 1");
+    }
 
     return (
       <Grid>
@@ -170,7 +323,7 @@ class Images extends Component {
               })`
             }}
           >
-            {this.renderOverlay()}
+            {first}
           </Col>
           <Col
             xs={6}
@@ -183,6 +336,7 @@ class Images extends Component {
               })`
             }}
           >
+            {second}
             {overlay}
           </Col>
         </Row>
@@ -198,10 +352,90 @@ class Images extends Component {
       countFrom > 5 ||
       (images.length > countFrom && [4, 5].includes(+countFrom))
         ? this.renderCountOverlay(true)
-        : this.renderOverlay(conditionalRender ? 3 : 4);
+        : this.renderOverlay(
+            conditionalRender ? 3 : 4,
+            conditionalRender ? 3 : 4
+          );
     const conditionalRender =
       images.length == 4 || (images.length > +countFrom && +countFrom == 4);
+    let first = this.renderOverlay(conditionalRender ? 1 : 2),
+      second = this.renderOverlay(conditionalRender ? 2 : 3),
+      third = overlay;
+    if (this.isIframe(images[1])) {
+      // console.log("i am exist");
+      first = (
+        <React.Fragment>
+          <iframe
+            title="cats"
+            width="560"
+            height="315"
+            src={images[1].url}
+            style={{
+              zIndex: -1,
+              maxWidth: "97%",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              top: "50%",
+              transform: "translateY(-50%)"
+            }}
+          />
 
+          {this.renderOverlay(null, "Play Video")}
+        </React.Fragment>
+      );
+    }
+    if (this.isIframe(images[2])) {
+      second = (
+        <React.Fragment>
+          <iframe
+            title="cats"
+            width="560"
+            height="315"
+            src={images[2].url}
+            style={{
+              zIndex: -1,
+              maxWidth: "97%",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              top: "50%",
+              transform: "translateY(-50%)"
+            }}
+          />
+
+          {this.renderOverlay(null, "Play Video")}
+        </React.Fragment>
+      );
+      console.log("i am exist 1");
+    }
+    if (this.isIframe(images[3])) {
+      // console.log("i am exist");
+      third = (
+        <React.Fragment>
+          <iframe
+            title="cats"
+            width="560"
+            height="315"
+            src={images[3].url}
+            style={{
+              zIndex: -1,
+              maxWidth: "97%",
+              position: "absolute",
+              left: 0,
+              right: 0,
+              margin: "auto",
+              top: "50%",
+              transform: "translateY(-50%)"
+            }}
+          />
+
+          {this.renderOverlay(null, "Play Video")}
+        </React.Fragment>
+      );
+    }
     return (
       <Grid>
         <Row>
@@ -216,7 +450,7 @@ class Images extends Component {
               })`
             }}
           >
-            {this.renderOverlay(conditionalRender ? 1 : 2)}
+            {first}
           </Col>
           <Col
             xs={6}
@@ -229,7 +463,7 @@ class Images extends Component {
               })`
             }}
           >
-            {this.renderOverlay(conditionalRender ? 2 : 3)}
+            {second}
           </Col>
           <Col
             xs={6}
@@ -243,13 +477,14 @@ class Images extends Component {
             }}
           >
             {overlay}
+            {third}
           </Col>
         </Row>
       </Grid>
     );
   }
 
-  renderOverlay(id) {
+  renderOverlay(id, txt) {
     const { hideOverlay, renderOverlay, overlayBackgroundColor } = this.props;
 
     if (hideOverlay) {
@@ -267,7 +502,7 @@ class Images extends Component {
         className="cover-text slide animate-text"
         style={{ fontSize: "100%" }}
       >
-        {renderOverlay()}
+        {txt || renderOverlay()}
       </div>
     ];
   }

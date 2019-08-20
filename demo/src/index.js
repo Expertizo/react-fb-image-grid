@@ -39,18 +39,27 @@ const imgs = [
       "https://images.pexels.com/photos/60597/dahlia-red-blossom-bloom-60597.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=1000"
   },
   {
-    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
-    iFrame: true,
-    props: {},
-    thumbnail:
-      "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+    isVideo: true,
+    url:
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    props: {}
+    // thumbnail:
+    //   "https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"
   },
   {
     isVideo: true,
-    url: "http://techslides.com/demos/sample-videos/small.webm",
-    props: {},
-    thumbnail:
-      "https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"
+    url:
+      "http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4",
+    props: {}
+    // thumbnail:
+    //   "https://www.gettyimages.ie/gi-resources/images/Homepage/Hero/UK/CMS_Creative_164657191_Kingfisher.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
   }
 ];
 
