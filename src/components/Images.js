@@ -350,14 +350,14 @@ class Images extends Component {
     let first = this.renderOverlay(conditionalRender ? 1 : 2),
       second = this.renderOverlay(conditionalRender ? 2 : 3),
       third = overlay;
-    if (this.isIframe(images[1])) {
+    if (this.isIframe(images[conditionalRender ? 1 : 2])) {
       first = (
         <React.Fragment>
           <iframe
             title="cats"
             width="560"
             height="315"
-            src={images[1].url}
+            src={images[conditionalRender ? 1 : 2].url}
             style={{
               zIndex: -1,
               maxWidth: "97%",
@@ -374,14 +374,14 @@ class Images extends Component {
         </React.Fragment>
       );
     }
-    if (this.isIframe(images[2])) {
+    if (this.isIframe(images[conditionalRender ? 2 : 3])) {
       second = (
         <React.Fragment>
           <iframe
             title="cats"
             width="560"
             height="315"
-            src={images[2].url}
+            src={images[conditionalRender ? 2 : 3].url}
             style={{
               zIndex: -1,
               maxWidth: "97%",
@@ -398,14 +398,14 @@ class Images extends Component {
         </React.Fragment>
       );
     }
-    if (this.isIframe(images[3])) {
+    if (this.isIframe(images[conditionalRender ? 3 : 4])) {
       third = (
         <React.Fragment>
           <iframe
             title="cats"
             width="560"
             height="315"
-            src={images[3].url}
+            src={images[conditionalRender ? 3 : 4].url}
             style={{
               zIndex: -1,
               maxWidth: "97%",

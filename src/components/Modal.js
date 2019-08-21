@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Image, Modal, Grid, Row, Col } from "react-bootstrap";
 import Lightbox from "lightbox-react";
+import "lightbox-react/style.css"; // This only needs to be imported once in your app
 class ModalComponent extends Component {
   constructor(props) {
     super(props);
@@ -31,7 +32,7 @@ class ModalComponent extends Component {
 
   render() {
     const { images, currentImageIndex } = this.state;
-    const { onClose } = this.props;
+    const { onClose, index, selectedImage } = this.props;
 
     return (
       <Lightbox
