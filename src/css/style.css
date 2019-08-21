@@ -105,3 +105,29 @@
 .d-none {
   display: none;
 }
+
+.iframe {
+  width: 80% !important;
+  height: 80% !important;
+  max-width: 97% !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+.iframe-overlay {
+  z-index: -1;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.flex-container-div {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex: 1 !important;
+  justify-content: center !important;
+  align-items: center !important;
+}

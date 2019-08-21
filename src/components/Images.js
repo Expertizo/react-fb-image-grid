@@ -6,7 +6,7 @@ import PropTypes from "prop-types";
 class Images extends Component {
   static defaultProps = {
     hideOverlay: false,
-    renderOverlay: () => "Preview Image",
+    renderOverlay: () => "Preview",
     overlayBackgroundColor: "#222222",
     onClickEach: null,
     countFrom: 5
@@ -32,7 +32,7 @@ class Images extends Component {
       console.warn("countFrom is limited to 5!");
     }
   }
-  generateThumbnail = async (url, i) => {
+  generateVideoThumbnail = async (url, i) => {
     let canvas = document.createElement("canvas");
     canvas.width = 640;
     canvas.height = 480;
@@ -62,77 +62,27 @@ class Images extends Component {
       this.setState({ thumbnails });
     };
   };
-  generateThumbnail = async (url, i) => {
-    let canvas = document.createElement("canvas");
-    canvas.width = 640;
-    canvas.height = 480;
-    canvas.crossOrigin = "anonymous";
-    let context = canvas.getContext("2d");
-    let video = document.createElement("video");
-    video.width = 0;
-    video.id = `video-${i}`;
-    video.crossOrigin = "anonymous";
-    let source = document.createElement("source");
-    source.src = url;
-    video.appendChild(source);
-    document.getElementsByTagName("html")[0].append(video);
-    video.autoplay = true;
-    video.muted = true;
-    video.ontimeupdate = () => {
-      video.pause();
-      context.drawImage(
-        document.getElementById(`video-${i}`),
-        0,
-        0,
-        canvas.width,
-        canvas.height
-      );
-      const { thumbnails } = this.state;
-      thumbnails[i] = canvas.toDataURL("image/jpeg");
-      this.setState({ thumbnails });
-    };
-  };
-  componentDidMount() {
-    const { images } = this.props;
-    if (!images.length) return;
 
+  sortImages = images => {
     const imageUrls = [];
     const thumbnails = [];
-
     images.forEach((img, i) => {
       if (this.pureTypeOf(img) === "object") {
-        if ("iFrame" in img) {
+        if ("iFrame" in img && img.iFrame) {
           imageUrls.push(() => (
-            <iframe
-              title="cats"
-              width="560"
-              height="315"
-              src={img.url}
-              style={{
-                maxWidth: "97%",
-                position: "absolute",
-                left: 0,
-                right: 0,
-                margin: "auto",
-                top: "50%",
-                transform: "translateY(-50%)"
-              }}
-              {...img.props}
-            />
+            <div className="flex-container-div">
+              <iframe
+                title="cats"
+                className="iframe"
+                src={img.url}
+                {...img.props}
+              />
+            </div>
           ));
           thumbnails.push(img.thumbnail || null);
         } else if ("isVideo" in img && img.isVideo) {
           imageUrls.push(() => (
-            <div
-              style={{
-                width: "100%",
-                height: "100%",
-                display: "flex",
-                flex: 1,
-                justifyContent: "center",
-                alignItems: "center"
-              }}
-            >
+            <div className="flex-container-div">
               <video
                 width="400"
                 controls
@@ -144,7 +94,9 @@ class Images extends Component {
               </video>
             </div>
           ));
-          thumbnails.push(img.thumbnail || this.generateThumbnail(img.url, i));
+          thumbnails.push(
+            img.thumbnail || this.generateVideoThumbnail(img.url, i)
+          );
         } else {
           imageUrls.push(img.url);
           thumbnails.push(img.thumbnail || img.url);
@@ -153,9 +105,14 @@ class Images extends Component {
         imageUrls.push(img);
         thumbnails.push(img);
       }
-
-      this.setState({ imageUrls, thumbnails });
     });
+    this.setState({ imageUrls, thumbnails });
+  };
+
+  componentDidMount() {
+    const { images } = this.props;
+    if (!images.length) return;
+    this.sortImages(images);
   }
 
   openModal(index) {
@@ -188,6 +145,10 @@ class Images extends Component {
     return "iFrame" in temp && temp.iFrame;
   };
 
+  renderIframe = (url, props = {}) => (
+    <iframe className="iframe iframe-overlay" src={url} {...props} />
+  );
+
   renderOne() {
     const { images } = this.props;
     const { countFrom, thumbnails } = this.state;
@@ -196,27 +157,12 @@ class Images extends Component {
         ? this.renderCountOverlay(true)
         : this.renderOverlay(null, 0);
     let first = overlay;
-    if (this.isIframe(images[0])) {
+    const firstItem = images[0];
+    if (this.isIframe(firstItem)) {
       first = (
         <React.Fragment>
-          <iframe
-            title="cats"
-            width="560"
-            height="315"
-            src={images[0].url}
-            style={{
-              zIndex: -1,
-              maxWidth: "97%",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              margin: "auto",
-              top: "50%",
-              transform: "translateY(-50%)"
-            }}
-          />
-
-          {this.renderOverlay(null, "Play Video")}
+          {this.renderIframe(firstItem.url, firstItem.props)}
+          {this.renderOverlay()}
         </React.Fragment>
       );
     }
@@ -249,51 +195,24 @@ class Images extends Component {
       (images.length > +countFrom && [3, 4].includes(+countFrom));
     let first = this.renderOverlay(),
       second = overlay;
-    if (this.isIframe(images[0])) {
+    const firstItem = images[0];
+    const secondItem = images[1];
+
+    if (this.isIframe(firstItem)) {
       first = (
         <React.Fragment>
-          <iframe
-            title="cats"
-            width="560"
-            height="315"
-            src={images[0].url}
-            style={{
-              zIndex: -1,
-              maxWidth: "97%",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              margin: "auto",
-              top: "50%",
-              transform: "translateY(-50%)"
-            }}
-          />
+          {this.renderIframe(firstItem.url, firstItem.props)}
 
-          {this.renderOverlay(null, "Play Video")}
+          {this.renderOverlay()}
         </React.Fragment>
       );
     }
-    if (this.isIframe(images[1])) {
+    if (this.isIframe(secondItem)) {
       second = (
         <React.Fragment>
-          <iframe
-            title="cats"
-            width="560"
-            height="315"
-            src={images[1].url}
-            style={{
-              zIndex: -1,
-              maxWidth: "97%",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              margin: "auto",
-              top: "50%",
-              transform: "translateY(-50%)"
-            }}
-          />
+          {this.renderIframe(secondItem.url, secondItem.props)}
 
-          {this.renderOverlay(null, "Play Video")}
+          {this.renderOverlay()}
         </React.Fragment>
       );
     }
@@ -350,75 +269,33 @@ class Images extends Component {
     let first = this.renderOverlay(conditionalRender ? 1 : 2),
       second = this.renderOverlay(conditionalRender ? 2 : 3),
       third = overlay;
-    if (this.isIframe(images[conditionalRender ? 1 : 2])) {
+
+    const firstItem = images[conditionalRender ? 1 : 2];
+    const secondItem = images[conditionalRender ? 2 : 3];
+    const thirdItem = images[conditionalRender ? 3 : 4];
+    if (this.isIframe(firstItem)) {
       first = (
         <React.Fragment>
-          <iframe
-            title="cats"
-            width="560"
-            height="315"
-            src={images[conditionalRender ? 1 : 2].url}
-            style={{
-              zIndex: -1,
-              maxWidth: "97%",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              margin: "auto",
-              top: "50%",
-              transform: "translateY(-50%)"
-            }}
-          />
-
-          {this.renderOverlay(null, "Play Video")}
+          {this.renderIframe(firstItem.url, firstItem.props)}
+          {this.renderOverlay()}
         </React.Fragment>
       );
     }
-    if (this.isIframe(images[conditionalRender ? 2 : 3])) {
+    if (this.isIframe(secondItem)) {
       second = (
         <React.Fragment>
-          <iframe
-            title="cats"
-            width="560"
-            height="315"
-            src={images[conditionalRender ? 2 : 3].url}
-            style={{
-              zIndex: -1,
-              maxWidth: "97%",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              margin: "auto",
-              top: "50%",
-              transform: "translateY(-50%)"
-            }}
-          />
+          {this.renderIframe(secondItem.url, secondItem.props)}
 
-          {this.renderOverlay(null, "Play Video")}
+          {this.renderOverlay()}
         </React.Fragment>
       );
     }
-    if (this.isIframe(images[conditionalRender ? 3 : 4])) {
+    if (this.isIframe(thirdItem)) {
       third = (
         <React.Fragment>
-          <iframe
-            title="cats"
-            width="560"
-            height="315"
-            src={images[conditionalRender ? 3 : 4].url}
-            style={{
-              zIndex: -1,
-              maxWidth: "97%",
-              position: "absolute",
-              left: 0,
-              right: 0,
-              margin: "auto",
-              top: "50%",
-              transform: "translateY(-50%)"
-            }}
-          />
+          {this.renderIframe(thirdItem.url, thirdItem.props)}
 
-          {this.renderOverlay(null, "Play Video")}
+          {/* {this.renderOverlay()} */}
         </React.Fragment>
       );
     }
@@ -470,7 +347,7 @@ class Images extends Component {
     );
   }
 
-  renderOverlay(id, txt) {
+  renderOverlay(id) {
     const { hideOverlay, renderOverlay, overlayBackgroundColor } = this.props;
 
     if (hideOverlay) {
@@ -488,7 +365,7 @@ class Images extends Component {
         className="cover-text slide animate-text"
         style={{ fontSize: "100%" }}
       >
-        {txt || renderOverlay()}
+        {renderOverlay()}
       </div>
     ];
   }
