@@ -155,17 +155,11 @@ class Images extends Component {
     const overlay =
       images.length > countFrom && countFrom == 1
         ? this.renderCountOverlay(true)
-        : this.renderOverlay(null, 0);
-    let first = overlay;
+        : this.renderOverlay();
     const firstItem = images[0];
-    if (this.isIframe(firstItem)) {
-      first = (
-        <React.Fragment>
-          {this.renderIframe(firstItem.url, firstItem.props)}
-          {this.renderOverlay()}
-        </React.Fragment>
-      );
-    }
+    const firstItemRender = this.isIframe(firstItem)
+      ? this.renderIframe(firstItem.url, firstItem.props)
+      : overlay;
     return (
       <Grid>
         <Row>
@@ -176,7 +170,8 @@ class Images extends Component {
             onClick={this.openModal.bind(this, 0)}
             style={{ background: `url(${thumbnails[0]})` }}
           >
-            {first}
+            {firstItemRender}
+            {this.renderOverlay()}
           </Col>
         </Row>
       </Grid>
@@ -189,33 +184,18 @@ class Images extends Component {
     const overlay =
       images.length > countFrom && [2, 3].includes(+countFrom)
         ? this.renderCountOverlay(true)
-        : this.renderOverlay(null, 1);
+        : this.renderOverlay();
     const conditionalRender =
       [3, 4].includes(images.length) ||
       (images.length > +countFrom && [3, 4].includes(+countFrom));
-    let first = this.renderOverlay(),
-      second = overlay;
     const firstItem = images[0];
     const secondItem = images[1];
-
-    if (this.isIframe(firstItem)) {
-      first = (
-        <React.Fragment>
-          {this.renderIframe(firstItem.url, firstItem.props)}
-
-          {this.renderOverlay()}
-        </React.Fragment>
-      );
-    }
-    if (this.isIframe(secondItem)) {
-      second = (
-        <React.Fragment>
-          {this.renderIframe(secondItem.url, secondItem.props)}
-
-          {this.renderOverlay()}
-        </React.Fragment>
-      );
-    }
+    const firstItemRender = this.isIframe(firstItem)
+      ? this.renderIframe(firstItem.url, firstItem.props)
+      : this.renderOverlay();
+    const secondItemRende = this.isIframe(secondItem)
+      ? this.renderIframe(secondItem.url, secondItem.props)
+      : overlay;
 
     return (
       <Grid>
@@ -231,7 +211,8 @@ class Images extends Component {
               })`
             }}
           >
-            {first}
+            {firstItemRender}
+            {this.renderOverlay()}
           </Col>
           <Col
             xs={6}
@@ -244,7 +225,7 @@ class Images extends Component {
               })`
             }}
           >
-            {second}
+            {secondItemRende}
             {overlay}
           </Col>
         </Row>
@@ -266,39 +247,19 @@ class Images extends Component {
           );
     const conditionalRender =
       images.length == 4 || (images.length > +countFrom && +countFrom == 4);
-    let first = this.renderOverlay(conditionalRender ? 1 : 2),
-      second = this.renderOverlay(conditionalRender ? 2 : 3),
-      third = overlay;
-
     const firstItem = images[conditionalRender ? 1 : 2];
     const secondItem = images[conditionalRender ? 2 : 3];
     const thirdItem = images[conditionalRender ? 3 : 4];
-    if (this.isIframe(firstItem)) {
-      first = (
-        <React.Fragment>
-          {this.renderIframe(firstItem.url, firstItem.props)}
-          {this.renderOverlay()}
-        </React.Fragment>
-      );
-    }
-    if (this.isIframe(secondItem)) {
-      second = (
-        <React.Fragment>
-          {this.renderIframe(secondItem.url, secondItem.props)}
+    const firstItemRende = this.isIframe(firstItem)
+      ? this.renderIframe(firstItem.url, firstItem.props)
+      : this.renderOverlay(conditionalRender ? 1 : 2);
+    const secondItemRende = this.isIframe(secondItem)
+      ? this.renderIframe(secondItem.url, secondItem.props)
+      : this.renderOverlay(conditionalRender ? 2 : 3);
+    const thirdItemRende = this.isIframe(thirdItem)
+      ? this.renderIframe(thirdItem.url, thirdItem.props)
+      : overlay;
 
-          {this.renderOverlay()}
-        </React.Fragment>
-      );
-    }
-    if (this.isIframe(thirdItem)) {
-      third = (
-        <React.Fragment>
-          {this.renderIframe(thirdItem.url, thirdItem.props)}
-
-          {/* {this.renderOverlay()} */}
-        </React.Fragment>
-      );
-    }
     return (
       <Grid>
         <Row>
@@ -313,7 +274,8 @@ class Images extends Component {
               })`
             }}
           >
-            {first}
+            {firstItemRende}
+            {this.renderOverlay()}
           </Col>
           <Col
             xs={6}
@@ -326,7 +288,8 @@ class Images extends Component {
               })`
             }}
           >
-            {second}
+            {secondItemRende}
+            {this.renderOverlay()}
           </Col>
           <Col
             xs={6}
@@ -340,7 +303,7 @@ class Images extends Component {
             }}
           >
             {overlay}
-            {third}
+            {thirdItemRende}
           </Col>
         </Row>
       </Grid>

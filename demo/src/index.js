@@ -50,6 +50,62 @@ const imgs = [
     props: {}
     // thumbnail:
     //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
+  },
+  {
+    url: "https://www.youtube.com/embed/5dsGWM5XGdg",
+    iFrame: true,
+    props: {}
+    // thumbnail:
+    //   "https://cdn.pixabay.com/photo/2016/10/27/22/53/heart-1776746_960_720.jpg"
   }
 ];
 
