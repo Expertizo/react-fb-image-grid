@@ -50,10 +50,8 @@ class Images extends Component {
     video.muted = true;
     video.ontimeupdate = () => {
       video.pause();
-      // alert("asdas");
       context.drawImage(
         document.getElementById(`video-${i}`),
-        // video,
         0,
         0,
         canvas.width,
@@ -82,10 +80,8 @@ class Images extends Component {
     video.muted = true;
     video.ontimeupdate = () => {
       video.pause();
-      // alert("asdas");
       context.drawImage(
         document.getElementById(`video-${i}`),
-        // video,
         0,
         0,
         canvas.width,
