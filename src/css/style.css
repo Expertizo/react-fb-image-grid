@@ -1,5 +1,5 @@
-@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css';
-@import 'https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css';
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
+@import "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css";
 
 /* Images Component CSS */
 
@@ -16,7 +16,7 @@
   width: 100% !important;
 }
 
-.container *{
+.container * {
   margin: 0;
   padding: 0;
   cursor: pointer;
@@ -88,16 +88,46 @@
 .slide {
   height: 0;
   bottom: 100%;
-  transition: .5s ease;
+  transition: 0.5s ease;
   overflow: hidden;
   font-size: 3%;
 }
 
-.border:hover .slide  {
+.border:hover .slide {
   bottom: 0;
   height: auto;
 }
 
-.border:hover .animate-text  {
-  top: 62%
+.border:hover .animate-text {
+  top: 62%;
+}
+
+.d-none {
+  display: none;
+}
+
+.iframe {
+  width: 80% !important;
+  height: 80% !important;
+  max-width: 97% !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  margin: auto !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+.iframe-overlay {
+  z-index: -1;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.flex-container-div {
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  flex: 1 !important;
+  justify-content: center !important;
+  align-items: center !important;
 }
