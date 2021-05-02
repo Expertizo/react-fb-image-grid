@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Image, Grid, Row, Col } from 'react-bootstrap';
-import Grida from "@material-ui/core/Grid";
+import {Grid} from "@material-ui/core";
 import Modal from './Modal'
 import PropTypes from 'prop-types';
 
@@ -50,11 +49,11 @@ class Images extends Component {
     const { countFrom } = this.state;
     const overlay = images.length > countFrom && countFrom == 1 ? this.renderCountOverlay(true) : this.renderOverlay();
 
-    return (<Grida container>
-      <Col item xs={12} md={12} className={`border height-one background`} onClick={this.openModal.bind(this, 0)} style={{ background: `url(${images[0]})` }}>
+    return (<Grid container>
+      <Grid item xs={12} md={12} className={`border height-one background`} onClick={this.openModal.bind(this, 0)} style={{ background: `url(${images[0]})` }}>
         {overlay}
-      </Col>
-    </Grida>)
+      </Grid>
+    </Grid>)
 
   }
 
@@ -64,15 +63,15 @@ class Images extends Component {
     const overlay = images.length > countFrom && [2, 3].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay();
     const conditionalRender = [3, 4].includes(images.length) || images.length > +countFrom && [3, 4].includes(+countFrom);
 
-    return (<Grida container>
-      <Grida item xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 0)} style={{ background: `url(${conditionalRender ? images[1] : images[0]})` }}
+    return (<Grid container>
+      <Grid item xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 0)} style={{ background: `url(${conditionalRender ? images[1] : images[0]})` }}
       >
         {this.renderOverlay()}
-      </Grida>
-      <Grida item xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 1)} style={{ background: `url(${conditionalRender ? images[2] : images[1]})` }}>
+      </Grid>
+      <Grid item xs={6} md={6} className="border height-two background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 1)} style={{ background: `url(${conditionalRender ? images[2] : images[1]})` }}>
         {overlay}
-      </Grida>
-    </Grida>)
+      </Grid>
+    </Grid>)
 
   }
 
@@ -82,17 +81,17 @@ class Images extends Component {
     const overlay = !countFrom || countFrom > 5 || images.length > countFrom && [4, 5].includes(+countFrom) ? this.renderCountOverlay(true) : this.renderOverlay(conditionalRender ? 3 : 4);
     const conditionalRender = images.length == 4 || images.length > +countFrom && +countFrom == 4;
 
-    return (<Grida container>
-      <Grida item xs={4}  className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 2)} style={{ background: `url(${conditionalRender ? images[1] : images[2]})` }}>
+    return (<Grid container>
+      <Grid item xs={4}  className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 1 : 2)} style={{ background: `url(${conditionalRender ? images[1] : images[2]})` }}>
         {this.renderOverlay(conditionalRender ? 1 : 2)}
-      </Grida>
-      <Grida item xs={4}  className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 3)} style={{ background: `url(${conditionalRender ? images[2] : images[3]})` }}>
+      </Grid>
+      <Grid item xs={4}  className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 2 : 3)} style={{ background: `url(${conditionalRender ? images[2] : images[3]})` }}>
         {this.renderOverlay(conditionalRender ? 2 : 3)}
-      </Grida>
-      <Grida item xs={4}  className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 3 : 4)} style={{ background: `url(${conditionalRender ? images[3] : images[4]})` }}>
+      </Grid>
+      <Grid item xs={4}  className="border height-three background" onClick={this.openModal.bind(this, conditionalRender ? 3 : 4)} style={{ background: `url(${conditionalRender ? images[3] : images[4]})` }}>
         {overlay}
-      </Grida>
-    </Grida>)
+      </Grid>
+    </Grid>)
 
   }
 
